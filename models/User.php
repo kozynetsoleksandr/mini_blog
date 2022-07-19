@@ -3,13 +3,52 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $auth_key
+ * @property string $access_token
+ */
+class User extends ActiveRecord implements IdentityInterface
 {
-    public static function tableName() {
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
         return 'user';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'password', 'auth_key', 'access_token'], 'required'],
+            [['username'], 'string', 'min' => 4, 'max' => 55],
+            [['password', 'auth_key', 'access_token'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'auth_key' => 'Auth Key',
+            'access_token' => 'Access Token',
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -24,7 +63,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return self::find()->where(['access_token' => $token])->one();
+        return self::find()->where(['access_token' => $token]);
     }
 
     /**
@@ -35,7 +74,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return self::findOne(['username' => $username]);
+        return User::find()->where(['username' => $username])->one();
     }
 
     /**
@@ -70,6 +109,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return \Yii::$app->security->validatePassword($password, $this->password);
     }
 }
