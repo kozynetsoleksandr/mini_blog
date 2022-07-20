@@ -14,7 +14,11 @@ Copy repository
     
 Run the installation triggers (creating cookie validation code)
 
-    docker-compose run --rm php composer install    
+    docker-compose run --rm php composer install
+
+Start the container
+
+    docker-compose up -d
 
 Run migration
 
@@ -23,16 +27,16 @@ Run migration
 Run seeders
 
     docker-compose run --rm php yii seed    
-    
-Start the container
+  
+Run seeders
 
-    docker-compose up -d
-    
+    sudo chgrp -R www-data . && sudo chmod -R g+w .    
+
 You can then access the application through the following URL:
 
     http://127.0.0.1:8000
 
-**NOTES:** 
-- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
-- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
+Default login: user, password: user
+
+    http://127.0.0.1:8000
 
