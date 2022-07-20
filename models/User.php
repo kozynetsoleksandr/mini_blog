@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -32,6 +33,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['username', 'password', 'auth_key', 'access_token'], 'required'],
             [['username'], 'string', 'min' => 4, 'max' => 55],
+            ['username', 'unique', 'message' => '{attribute} is required'],
             [['password', 'auth_key', 'access_token'], 'string', 'max' => 255],
         ];
     }
