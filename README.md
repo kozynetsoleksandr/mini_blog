@@ -20,7 +20,7 @@ Start the container
 
     docker-compose up -d
 
-Run migration
+Run migrations
 
     docker-compose run --rm php yii migrate    
 
@@ -39,4 +39,3 @@ You can then access the application through the following URL:
 Default User
 
     username: user, password: user
-
