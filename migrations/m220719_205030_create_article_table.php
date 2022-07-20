@@ -31,14 +31,6 @@ class m220719_205030_create_article_table extends Migration
             'user', // это имя таблицы, с которой хотим связаться
             'id' // это поле таблицы, с которым хотим связаться
         );
-
-        $this->addForeignKey(
-            'article_user_updated_by_fk',  // это "условное имя" ключа
-            'article', // это название текущей таблицы
-            'updated_by', // это имя поля в текущей таблице, которое будет ключом
-            'user', // это имя таблицы, с которой хотим связаться
-            'id' // это поле таблицы, с которым хотим связаться
-        );
     }
 
     /**
@@ -51,11 +43,6 @@ class m220719_205030_create_article_table extends Migration
         //Добавляем удаление внешнего ключа
         $this->dropForeignKey(
             'created_by',
-            'user'
-        );
-
-        $this->dropForeignKey(
-            'updated_by',
             'user'
         );
     }
