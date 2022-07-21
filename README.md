@@ -30,7 +30,7 @@ Run seeders
   
 Run for permission
 
-    sudo chown -R $USER:$USER .
+    sudo chmod -R 777 .
 
 You can then access the application through the following URL:
 
